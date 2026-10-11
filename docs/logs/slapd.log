@@ -1,0 +1,16 @@
+# Trecho de: sudo journalctl -u slapd -n 30 --no-pager
+# Servidor LDAP com olcLogLevel=stats. Dados sanitizados (Base DN, usuário, IP, hostname).
+
+# 1) SEARCH com o uid digitado errado -> nenhuma entrada encontrada
+Mar 28 16:37:58 ldap-server slapd[215]: conn=1007 op=6 SRCH base="dc=aluno,..." scope=2 filter="(&(objectClass=posixAccount)(uid=usuaro))"
+Mar 28 16:37:58 ldap-server slapd[215]: conn=1007 op=6 SEARCH RESULT tag=101 err=0 nentries=0
+
+# 2) SEARCH com o uid correto -> 1 entrada encontrada
+Mar 28 16:38:03 ldap-server slapd[215]: conn=1007 op=7 SRCH base="dc=aluno,..." scope=2 filter="(&(objectClass=posixAccount)(uid=usuario))"
+Mar 28 16:38:03 ldap-server slapd[215]: conn=1007 op=7 SEARCH RESULT tag=101 err=0 nentries=1
+
+# 3) BIND com o DN encontrado -> senha validada (err=0)
+Mar 28 16:38:03 ldap-server slapd[215]: conn=1017 fd=19 ACCEPT from IP=<IP_CLIENTE>:36614
+Mar 28 16:38:03 ldap-server slapd[215]: conn=1017 op=0 BIND dn="cn=Usuario Teste,ou=People,dc=aluno,dc=seg,dc=ctism,dc=ufsm,dc=br" method=128
+Mar 28 16:38:03 ldap-server slapd[215]: conn=1017 op=0 BIND dn="cn=Usuario Teste,..." mech=SIMPLE bind_ssf=0 ssf=0
+Mar 28 16:38:03 ldap-server slapd[215]: conn=1017 op=0 RESULT tag=97 err=0 qtime=0.000022 etime=0.000268

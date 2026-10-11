@@ -1,0 +1,15 @@
+# Trecho de: sudo tail -n 30 /var/log/auth.log
+# Cliente Linux. Dados sanitizados (usuário de teste, hostname).
+
+# victor (grupo gerencia): sudo permitido
+Mar 28 16:24:22 ldap-client sudo: victor : TTY=pts/1 ; PWD=/home/victor ; USER=root ; COMMAND=/usr/bin/tcpdump -i any -c 5
+Mar 28 16:24:22 ldap-client sudo: pam_unix(sudo:session): session opened for user root(uid=0)
+Mar 28 16:24:22 ldap-client sudo: pam_unix(sudo:session): session closed for user root
+
+# usuario (grupo usuarios): primeira sessão, home criado pelo pam_mkhomedir
+Mar 28 16:25:14 ldap-client su: (to usuario) ldapclient on pts/1
+Mar 28 16:25:14 ldap-client su: pam_unix(su-l:session): session opened for user usuario(uid=10001)
+
+# usuario (grupo usuarios): sudo negado
+Mar 28 16:25:41 ldap-client sudo: pam_unix(sudo:auth): authentication failure; logname=ldapclient uid=10001 euid=0 tty=/dev/pts/1 ruser=usuario user=usuario
+Mar 28 16:25:41 ldap-client sudo: usuario : user NOT in sudoers ; TTY=pts/1 ; PWD=/home/usuario ; COMMAND=/usr/bin/tcpdump -i any -c 5
